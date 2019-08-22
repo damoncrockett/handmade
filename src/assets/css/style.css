@@ -1,0 +1,63 @@
+:root {
+  --panel-background: hsl(0, 0%, 15%);
+	--panel-stroke: hsl(0, 0%, 45%);
+}
+
+rect:hover {
+	fill: hsl(32, 100%, 50%);
+}
+
+rect.gallery {
+	stroke: var(--panel-background);
+}
+
+rect.gallery:hover {
+	fill: var(--panel-background);
+}
+
+body {
+	background-color: hsl(0, 0%, 15%);
+}
+
+path, line, text {
+	color: hsl(0, 0%, 75%);
+}
+
+.field {
+	float: left;
+	max-width: 1000px;
+}
+
+.panel {
+  right: 40px;
+	bottom: 40px;
+  position: fixed;
+	max-width: 334.8px;
+	background-color: var(--panel-background);
+	border-radius: 10px;
+	border-color: var(--panel-stroke);
+	border-width: 1px;
+	border-style: solid;
+  text-align: center; /* for centering buttonStrip */
+}
+
+.buttonStrip {
+  display: inline-block;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+button, button:focus, button:active {
+  font-family: sans-serif;
+  border-color: var(--panel-stroke);
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  outline: none;
+}
+
+button:hover {
+  border-color: hsl(0, 0%, 65%);
+  color: hsl(0, 0%, 65%) !important;
+}
