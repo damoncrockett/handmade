@@ -1,13 +1,13 @@
 //n.b.: string values for imp and risk are coerced to numeric
 
 const colorTable = {
-  'Laid':'30',
-  'Wove':'120',
+  'Western':'30',
+  'Asian':'120',
   'Unknown':'220'
 };
 
-function togglesToFill (textureVal) {
-  const hue = textureVal ? colorTable[textureVal] : '0';
+function togglesToFill (colorVal) {
+  const hue = colorVal ? colorTable[colorVal] : '0';
   const sat = hue==='0' ? '0' : '100';
   const lig = '50';
 

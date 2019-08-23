@@ -6,7 +6,7 @@ import { togglesToFill } from '../lib/color';
 
 const margin = {top: 40, right: 40, bottom: 40, left: 40};
 const baseWidth = 800;
-const rectSide = 10;
+const rectSide = 20;
 const rectPad = 1;
 
 class Montage extends Component {
@@ -33,20 +33,20 @@ class Montage extends Component {
   }
 
   setRectAttr() {
-    const gridW = max(this.props.data.map(d => d.x));
-    const gridH = max(this.props.data.map(d => d.y));
+    const gridW = max(this.props.data.map(d => Number(d.x)));
+    const gridH = max(this.props.data.map(d => Number(d.y)));
     const plotW = gridW * (rectSide + rectPad) + rectSide; // no outer pads
     const plotH = gridH * (rectSide + rectPad) + rectSide; // no outer pads
 
     this.setState(state => ({
-      svgW: histW + margin.left + margin.right,
-      svgH: histH + margin.top + margin.bottom,
+      svgW: plotW + margin.left + margin.right,
+      svgH: plotH + margin.top + margin.bottom,
       plotW: plotW,
       plotH: plotH,
     }));
   }
 
-  drawHistogram() {
+  drawMontage() {
     const svgNode = this.svgNode.current;
 
     select(svgNode)
@@ -70,19 +70,17 @@ class Montage extends Component {
       .select('g.plotCanvas')
       .selectAll('rect')
       .data(this.props.data)
-      .attr('width', this.state.rectSide)
-      .attr('height', this.state.rectSide)
-      .attr('rx', String(this.state.rectSide * .15))
-      .attr('ry', String(this.state.rectSide * .15))
-      .attr('x', d => d.x * (this.state.rectSide + this.state.rectPad))
+      .attr('width', rectSide)
+      .attr('height', rectSide)
+      .attr('rx', String(rectSide * .15))
+      .attr('ry', String(rectSide * .15))
+      .attr('x', d => d.x * (rectSide + rectPad))
       .attr('y', d => (
-        this.state.plotH -
-        d.y * (this.state.rectSide + this.state.rectPad) -
-        this.state.rectSide
+        this.state.plotH - d.y * (rectSide + rectPad) - rectSide
       ))
       .attr('fill', d => (
         togglesToFill(
-          this.props.textureToggle ? d.formation : null,
+          this.props.colorToggle ? d.tradition : null
         )
       ))
       .attr('title', d => d.index_number);
