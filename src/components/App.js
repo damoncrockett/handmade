@@ -26,28 +26,40 @@ class App extends Component {
     this.assignCoords = this.assignCoords.bind(this);
   }
 
-  handleRisk() {
+  handleTexture() {
     this.setState(state => ({
-      riskToggle: !state.riskToggle
+      textureToggle: !state.textureToggle
     }));
   }
 
-  handleImp() {
+  handleColor() {
     this.setState(state => ({
-      impToggle: !state.impToggle
+      colorToggle: !state.colorToggle
     }));
   }
 
-  handleAsc() {
+  handlePrint() {
     this.setState(state => ({
-      ascToggle: !state.ascToggle
+      printToggle: !state.printToggle
     }));
   }
 
-  handleData(i) {
+  handleWrite() {
     this.setState(state => ({
-      featNum: String(i)
-    }))
+      writeToggle: !state.writeToggle
+    }));
+  }
+
+  handleWater() {
+    this.setState(state => ({
+      waterToggle: !state.waterToggle
+    }));
+  }
+
+  handleSort() {
+    this.setState(state => ({
+      sortToggle: !state.sortToggle
+    }));
   }
 
   getData() {
