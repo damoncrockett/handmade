@@ -5,9 +5,10 @@ import { scaleLinear } from 'd3-scale';
 import { togglesToFill } from '../lib/color';
 
 const margin = {top: 40, right: 40, bottom: 40, left: 40};
-const baseWidth = 800;
-const rectSide = 20;
+const rectW = 10;
+const rectH = 20;
 const rectPad = 1;
+const formatDict = {'Full': rectH, 'Partial': rectH / 2};
 
 class Montage extends Component {
   constructor(props) {
@@ -35,8 +36,8 @@ class Montage extends Component {
   setRectAttr() {
     const gridW = max(this.props.data.map(d => Number(d.x)));
     const gridH = max(this.props.data.map(d => Number(d.y)));
-    const plotW = gridW * (rectSide + rectPad) + rectSide; // no outer pads
-    const plotH = gridH * (rectSide + rectPad) + rectSide; // no outer pads
+    const plotW = gridW * (rectW + rectPad) + rectW; // no outer pads
+    const plotH = gridH * (rectH + rectPad) + rectH; // no outer pads
 
     this.setState(state => ({
       svgW: plotW + margin.left + margin.right,
@@ -70,13 +71,13 @@ class Montage extends Component {
       .select('g.plotCanvas')
       .selectAll('rect')
       .data(this.props.data)
-      .attr('width', rectSide)
-      .attr('height', rectSide)
-      .attr('rx', String(rectSide * .15))
-      .attr('ry', String(rectSide * .15))
-      .attr('x', d => d.x * (rectSide + rectPad))
+      .attr('width', rectW)
+      .attr('height', d => formatDict[d.format] )
+      .attr('rx', String(rectW * .15))
+      .attr('ry', String(rectW * .15))
+      .attr('x', d => d.x * (rectW + rectPad))
       .attr('y', d => (
-        this.state.plotH - d.y * (rectSide + rectPad) - rectSide
+        this.state.plotH - d.y * (rectH + rectPad) - rectH
       ))
       .attr('fill', d => (
         togglesToFill(

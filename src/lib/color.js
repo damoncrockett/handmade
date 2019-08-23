@@ -1,17 +1,14 @@
 //n.b.: string values for imp and risk are coerced to numeric
 
 const colorTable = {
-  'Western':'30',
-  'Asian':'120',
-  'Unknown':'220'
+  'Western':'#773a1d',
+  'Asian':'#bf963c',
+  'Unknown':'#315273'
 };
 
 function togglesToFill (colorVal) {
-  const hue = colorVal ? colorTable[colorVal] : '0';
-  const sat = hue==='0' ? '0' : '100';
-  const lig = '50';
-
-  return 'hsl('+hue+','+sat+'%,'+lig+'%)';
+  const hex = colorVal ? colorTable[colorVal] : '#808080';
+  return hex;
 }
 
 export { togglesToFill };
