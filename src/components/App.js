@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Montage from './Montage';
 
 import orderBy from 'lodash/orderBy';
+import fill from 'lodash/fill';
+import range from 'lodash/range';
+import times from 'lodash/times';
+import constant from 'lodash/constant';
+import flatten from 'lodash/flatten';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +18,7 @@ class App extends Component {
       printToggle: false,
       writeToggle: false,
       waterToggle: false,
-      sortToggle: null,
+      sortToggle: false,
       data: null
     };
 
@@ -70,8 +75,21 @@ class App extends Component {
       })));
   }
 
-  assignCoords(data) { //placeholder for now
-    return data;
+  assignCoords(data) {
+    let sortedData = (this.state.sortToggle ? orderBy(data,'tradition','desc') : orderBy(data,'id'));
+    // basically implementing _gridcoords() here
+    let n = sortedData.length;
+    let ncols = Math.round( Math.sqrt(n) );
+    let nrows = Math.ceil( n / ncols );
+    let x = flatten(times(nrows, constant(range(ncols))));
+    let y = flatten(range(nrows).map(d => times(ncols, constant(d))));
+
+    sortedData.forEach((item, idx) => {
+        item.x = x[idx];
+        item.y = y[idx];
+      });
+
+    return sortedData
   }
 
   componentDidMount() {

@@ -5,8 +5,8 @@ import { scaleLinear } from 'd3-scale';
 import { togglesToFill } from '../lib/color';
 
 const margin = {top: 40, right: 40, bottom: 40, left: 40};
-const rectW = 10;
-const rectH = 20;
+const rectW = 20;
+const rectH = 40;
 const rectPad = 1;
 const formatDict = {'Full': rectH, 'Partial': rectH / 2};
 
@@ -86,7 +86,7 @@ class Montage extends Component {
       ))
       .attr('title', d => d.index_number);
 
-      window.scrollTo( 0, this.state.svgH );
+      //window.scrollTo( 0, this.state.svgH );
     }
 
   render() {
