@@ -51,6 +51,38 @@ class Montage extends Component {
     const svgNode = this.svgNode.current;
 
     select(svgNode)
+      .selectAll('pattern#wove')
+      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
+      .enter()
+      .append('pattern')
+      .attr('id', 'wove')
+      .attr('width', rectSide - 1)
+      .attr('height', rectSide - 1)
+      .attr('patternUnits', 'userSpaceOnUse')
+      .attr('patternTransform', 'rotate(0)')
+
+    select(svgNode)
+      .select('pattern#wove')
+      .selectAll('rect')
+      .data([0])
+      .enter()
+      .append('rect')
+      .attr('width',rectSide - 1)
+      .attr('height',rectSide - 1)
+      .attr('transform','translate(0,0)')
+      .attr('fill','#9f9a86');
+
+    select(svgNode)
+      .select('pattern#wove')
+      .selectAll('path')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d','M-1,1 l2,-2 M0,12 l12,-12 M11,13 l2,-2')
+      .attr('style','stroke:black; stroke-width:1')
+      .attr('shape-rendering','crispEdges');
+
+    select(svgNode)
       .selectAll('g.plotCanvas')
       .data([0]) // bc enter selection, prevents appending new 'g' on re-render
       .enter()
