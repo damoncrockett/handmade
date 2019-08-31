@@ -8,6 +8,12 @@ import times from 'lodash/times';
 import constant from 'lodash/constant';
 import flatten from 'lodash/flatten';
 
+const gridPos = 46;
+const lengthDict = {
+  'Full':2,
+  'Partial':1
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -78,16 +84,39 @@ class App extends Component {
   assignCoords(data) {
     let sortedData = (this.state.sortToggle ? orderBy(data,'tradition','desc') : orderBy(data,'id'));
     // basically implementing _gridcoords() here
-    let n = sortedData.length;
-    let ncols = Math.round( Math.sqrt(n) );
-    let nrows = Math.ceil( n / ncols );
-    let x = flatten(times(nrows, constant(range(ncols))));
-    let y = flatten(range(nrows).map(d => times(ncols, constant(d))));
+    //let n = sortedData.length;
+    //let ncols = Math.round( Math.sqrt(n) );
+    //let nrows = Math.ceil( n / ncols );
+    //let x = flatten(times(nrows, constant(range(ncols))));
+    //let y = flatten(range(nrows).map(d => times(ncols, constant(d))));
 
-    sortedData.forEach((item, idx) => {
-        item.x = x[idx];
-        item.y = y[idx];
-      });
+    //sortedData.forEach((item, idx) => {
+    //    item.x = x[idx];
+    //    item.y = y[idx];
+    //  });
+
+    let gridSum = 0;
+    let lastLength = null;
+    let colNum = 0;
+    let yPos = 0;
+
+    for (let i = 0; i < sortedData.length; i++) {
+      if (gridSum > gridPos) {
+        gridSum = 0;
+        colNum++;
+        yPos = 0;
+        lastLength = null;
+      }
+
+      let yDiff = (lastLength ? lastLength : 0);
+      let itemLength = lengthDict[sortedData[i].format];
+      gridSum += itemLength;
+      lastLength = itemLength;
+
+      yPos += yDiff;
+      sortedData[i].y = yPos;
+      sortedData[i].x = colNum;
+    }
 
     return sortedData
   }
@@ -106,29 +135,31 @@ class App extends Component {
   }
 
   render() {
+    const bkgd = '#e8e3cd';
+    const stroke = '#9f9a86';
     const textureStyle = {
-      backgroundColor: this.state.textureToggle ? 'white' : 'hsl(0, 0%, 15%)',
-      color: this.state.textureToggle ? 'black' : 'hsl(0, 0%, 45%)',
+      backgroundColor: this.state.textureToggle ? 'white' : bkgd,
+      color: this.state.textureToggle ? 'black' : stroke,
     };
     const colorStyle = {
-      backgroundColor: this.state.colorToggle ? 'white' : 'hsl(0, 0%, 15%)',
-      color: this.state.colorToggle ? 'black' : 'hsl(0, 0%, 45%)',
+      backgroundColor: this.state.colorToggle ? 'white' : bkgd,
+      color: this.state.colorToggle ? 'black' : stroke,
     };
     const printStyle = {
-      backgroundColor: this.state.printToggle ? 'white' : 'hsl(0, 0%, 15%)',
-      color: this.state.printToggle ? 'black' : 'hsl(0, 0%, 45%)',
+      backgroundColor: this.state.printToggle ? 'white' : bkgd,
+      color: this.state.printToggle ? 'black' : stroke,
     };
     const writeStyle = {
-      backgroundColor: this.state.writeToggle ? 'white' : 'hsl(0, 0%, 15%)',
-      color: this.state.writeToggle ? 'black' : 'hsl(0, 0%, 45%)',
+      backgroundColor: this.state.writeToggle ? 'white' : bkgd,
+      color: this.state.writeToggle ? 'black' : stroke,
     };
     const waterStyle = {
-      backgroundColor: this.state.waterToggle ? 'white' : 'hsl(0, 0%, 15%)',
-      color: this.state.waterToggle ? 'black' : 'hsl(0, 0%, 45%)',
+      backgroundColor: this.state.waterToggle ? 'white' : bkgd,
+      color: this.state.waterToggle ? 'black' : stroke,
     };
     const sortStyle = {
-      backgroundColor: this.state.sortToggle ? 'white' : 'hsl(0, 0%, 15%)',
-      color: this.state.sortToggle ? 'black' : 'hsl(0, 0%, 45%)',
+      backgroundColor: this.state.sortToggle ? 'white' : bkgd,
+      color: this.state.sortToggle ? 'black' : stroke,
     };
 
     return (
@@ -147,9 +178,6 @@ class App extends Component {
           <div className='buttonStrip'>
             <button onClick={this.handleTexture} style={textureStyle}>FORMATION</button>
             <button onClick={this.handleColor} style={colorStyle}>TRADITION</button>
-            <button onClick={this.handlePrint} style={printStyle}>PRINTING</button>
-            <button onClick={this.handleWrite} style={writeStyle}>WRITING</button>
-            <button onClick={this.handleWater} style={waterStyle}>WATERMARK</button>
             <button onClick={this.handleSort} style={sortStyle}>SORT</button>
           </div>
         </div>

@@ -1,38 +1,30 @@
 :root {
-  --panel-background: hsl(0, 0%, 15%);
-	--panel-stroke: hsl(0, 0%, 45%);
+  --panel-background: #e8e3cd;
+	--panel-stroke: #9f9a86;
 }
 
 rect:hover {
 	fill: hsl(32, 100%, 50%);
 }
 
-rect.gallery {
-	stroke: var(--panel-background);
-}
-
-rect.gallery:hover {
-	fill: var(--panel-background);
-}
-
 body {
-	background-color: hsl(0, 0%, 15%);
+	background-color: var(--panel-background);
 }
 
 path, line, text {
-	color: hsl(0, 0%, 75%);
+	color: var(--panel-stroke);
 }
 
 .field {
 	float: left;
-	max-width: 1000px;
+	max-width: 2000px;
 }
 
 .panel {
   right: 40px;
 	bottom: 40px;
   position: fixed;
-	max-width: 500px;
+	max-width: 100px;
 	background-color: var(--panel-background);
 	border-radius: 10px;
 	border-color: var(--panel-stroke);
@@ -54,10 +46,12 @@ button, button:focus, button:active {
   padding: 5px;
   margin-left: 5px;
   margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   outline: none;
 }
 
 button:hover {
-  border-color: hsl(0, 0%, 65%);
-  color: hsl(0, 0%, 65%) !important;
+  border-color: hsl(0, 0%, 0%);
+  color: hsl(0, 0%, 0%) !important;
 }

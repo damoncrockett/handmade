@@ -2,12 +2,13 @@
 
 const colorTable = {
   'Western':'#773a1d',
+  //'Western':'#784229',
   'Asian':'#bf963c',
   'Unknown':'#315273'
 };
 
 function togglesToFill (colorVal) {
-  const hex = colorVal ? colorTable[colorVal] : '#808080';
+  const hex = colorVal ? colorTable[colorVal] : '#9f9a86';
   return hex;
 }
 
