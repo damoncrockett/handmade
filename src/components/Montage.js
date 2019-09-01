@@ -50,6 +50,15 @@ class Montage extends Component {
   drawMontage() {
     const svgNode = this.svgNode.current;
 
+    function lineGen (rectSide) {
+      return 'M 0 ' + rectSide/2 + ' H ' + rectSide;
+    };
+
+    function sineGen (rectSide) {
+      return 'M 0 ' + rectSide/2 +
+             ' Q ' + rectSide/2 + ' ' + rectSide*-1/2 + ',' + ' ' + rectSide + ' ' + rectSide/2;
+    };
+
     select(svgNode)
       .selectAll('pattern#wove')
       .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
@@ -69,7 +78,6 @@ class Montage extends Component {
       .append('rect')
       .attr('width',rectSide - 1)
       .attr('height',rectSide - 1)
-      .attr('transform','translate(0,0)')
       .attr('fill','#9f9a86');
 
     select(svgNode)
@@ -78,7 +86,38 @@ class Montage extends Component {
       .data([0])
       .enter()
       .append('path')
-      .attr('d','M-1,1 l2,-2 M0,12 l12,-12 M11,13 l2,-2')
+      .attr('d',sineGen(rectSide-1))
+      .attr('style','stroke:black; stroke-width:1; fill:none')
+      .attr('shape-rendering','crispEdges');
+
+    select(svgNode)
+      .selectAll('pattern#laid')
+      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
+      .enter()
+      .append('pattern')
+      .attr('id', 'laid')
+      .attr('width', rectSide - 1)
+      .attr('height', rectSide - 1)
+      .attr('patternUnits', 'userSpaceOnUse')
+      .attr('patternTransform', 'rotate(0)')
+
+    select(svgNode)
+      .select('pattern#laid')
+      .selectAll('rect')
+      .data([0])
+      .enter()
+      .append('rect')
+      .attr('width',rectSide - 1)
+      .attr('height',rectSide - 1)
+      .attr('fill','#9f9a86');
+
+    select(svgNode)
+      .select('pattern#laid')
+      .selectAll('path')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d',lineGen(rectSide-1))
       .attr('style','stroke:black; stroke-width:1')
       .attr('shape-rendering','crispEdges');
 
@@ -107,7 +146,7 @@ class Montage extends Component {
       .attr('rx', String(rectSide * .15))
       .attr('ry', String(rectSide * .15))
       .attr('x', d => d.x * (rectSide + rectPad))
-      .attr('y', d => (d.y * (rectSide + rectPad)))
+      .attr('y', d => d.y * (rectSide + rectPad))
       .attr('fill', d => (
         togglesToFill(
           this.props.colorToggle ? d.tradition : null

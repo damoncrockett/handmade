@@ -20,7 +20,7 @@ class App extends Component {
 
     this.state = { // global state
       textureToggle: false,
-      colorToggle: false,
+      colorToggle: true,
       printToggle: false,
       writeToggle: false,
       waterToggle: false,
