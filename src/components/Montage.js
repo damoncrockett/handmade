@@ -15,6 +15,7 @@ class Montage extends Component {
     super(props);
     this.drawMontage = this.drawMontage.bind(this);
     this.setRectAttr = this.setRectAttr.bind(this);
+    this.injectPatterns = this.injectPatterns.bind(this);
     this.svgNode = React.createRef();
     this.state = {
       svgH: null,
@@ -22,6 +23,10 @@ class Montage extends Component {
       plotH: null,
       plotW: null
     };
+  }
+
+  componentDidMount() {
+    this.injectPatterns();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,7 +52,7 @@ class Montage extends Component {
     }));
   }
 
-  drawMontage() {
+  injectPatterns() {
     const svgNode = this.svgNode.current;
     const rectSideMinus = rectSide - 1;
 
@@ -125,6 +130,10 @@ class Montage extends Component {
       .attr('d',lineGen(rectSideMinus))
       .attr('style','stroke:black; stroke-width:1')
       .attr('shape-rendering','crispEdges');
+  }
+
+  drawMontage() {
+    const svgNode = this.svgNode.current;
 
     select(svgNode)
       .selectAll('g.plotCanvas')
