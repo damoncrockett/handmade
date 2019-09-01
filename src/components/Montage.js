@@ -49,14 +49,15 @@ class Montage extends Component {
 
   drawMontage() {
     const svgNode = this.svgNode.current;
+    const rectSideMinus = rectSide - 1;
 
-    function lineGen (rectSide) {
-      return 'M 0 ' + rectSide/2 + ' H ' + rectSide;
+    function lineGen (s) {
+      return 'M 0 ' + s/2 + ' H ' + s;
     };
 
-    function sineGen (rectSide) {
-      return 'M 0 ' + rectSide/2 +
-             ' Q ' + rectSide/2 + ' ' + rectSide*-1/2 + ',' + ' ' + rectSide + ' ' + rectSide/2;
+    function sineGen (s) {
+      return 'M 0 ' + s/2 +
+             ' Q ' + s/2 + ' ' + '0' + ',' + ' ' + s + ' ' + s/2;
     };
 
     select(svgNode)
@@ -65,10 +66,12 @@ class Montage extends Component {
       .enter()
       .append('pattern')
       .attr('id', 'wove')
-      .attr('width', rectSide - 1)
-      .attr('height', rectSide - 1)
-      .attr('patternUnits', 'userSpaceOnUse')
-      .attr('patternTransform', 'rotate(0)')
+      .attr('width',1)
+      .attr('height',1)
+      .attr('x','0')
+      .attr('y','0')
+      .attr('patternContentUnits','userSpaceOnUse')
+      .attr('patternUnits','objectBoundingBox')
 
     select(svgNode)
       .select('pattern#wove')
@@ -76,8 +79,8 @@ class Montage extends Component {
       .data([0])
       .enter()
       .append('rect')
-      .attr('width',rectSide - 1)
-      .attr('height',rectSide - 1)
+      .attr('width',rectSideMinus)
+      .attr('height',rectSide*2)
       .attr('fill','#9f9a86');
 
     select(svgNode)
@@ -86,7 +89,7 @@ class Montage extends Component {
       .data([0])
       .enter()
       .append('path')
-      .attr('d',sineGen(rectSide-1))
+      .attr('d',sineGen(rectSideMinus))
       .attr('style','stroke:black; stroke-width:1; fill:none')
       .attr('shape-rendering','crispEdges');
 
@@ -96,10 +99,12 @@ class Montage extends Component {
       .enter()
       .append('pattern')
       .attr('id', 'laid')
-      .attr('width', rectSide - 1)
-      .attr('height', rectSide - 1)
-      .attr('patternUnits', 'userSpaceOnUse')
-      .attr('patternTransform', 'rotate(0)')
+      .attr('width',1)
+      .attr('height',1)
+      .attr('x','0')
+      .attr('y','0')
+      .attr('patternContentUnits','userSpaceOnUse')
+      .attr('patternUnits','objectBoundingBox')
 
     select(svgNode)
       .select('pattern#laid')
@@ -107,8 +112,8 @@ class Montage extends Component {
       .data([0])
       .enter()
       .append('rect')
-      .attr('width',rectSide - 1)
-      .attr('height',rectSide - 1)
+      .attr('width',rectSideMinus)
+      .attr('height',rectSide*2)
       .attr('fill','#9f9a86');
 
     select(svgNode)
@@ -117,7 +122,7 @@ class Montage extends Component {
       .data([0])
       .enter()
       .append('path')
-      .attr('d',lineGen(rectSide-1))
+      .attr('d',lineGen(rectSideMinus))
       .attr('style','stroke:black; stroke-width:1')
       .attr('shape-rendering','crispEdges');
 
