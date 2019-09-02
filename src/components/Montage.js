@@ -2,13 +2,35 @@ import React, { Component } from 'react';
 import { select } from 'd3-selection';
 import { min, max } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
-import { togglesToFill } from '../lib/color';
 
 const margin = {top: 40, right: 40, bottom: 40, left: 40};
 const rectSide = 13;
 const rectPad = 1;
 const widthDict = {'Full': rectSide - 1, 'Partial': rectSide - 1 };
 const heightDict = {'Full': rectSide * 2, 'Partial': rectSide - 1 };
+
+const colorTable = {
+  'Asian':'rgb(72,149,15)',
+  'Western':'rgb(34,105,94)',
+  'off':'#9f9a86'
+};
+
+const patternTable = {
+  'off Laid': 'url(#offLaid)',
+  'off Wove': 'url(#offWove)',
+  'off Unknown': colorTable['off'],
+  'Western Laid': 'url(#westernLaid)',
+  'Western Wove': 'url(#westernWove)',
+  'Western Unknown': colorTable['Western'],
+  'Asian Laid': 'url(#asianLaid)',
+  'Asian Unknown': colorTable['Asian'],
+  'Unknown Laid': 'url(#offLaid)',
+  'Unknown Unknown': colorTable['off'],
+  'off off': colorTable['off'],
+  'Western off': colorTable['Western'],
+  'Asian off': colorTable['Asian'],
+  'Unknown off': colorTable['off'],
+}
 
 class Montage extends Component {
   constructor(props) {
@@ -65,12 +87,14 @@ class Montage extends Component {
              ' Q ' + s/2 + ' ' + '0' + ',' + ' ' + s + ' ' + s/2;
     };
 
+    //** offLaid **//
+
     select(svgNode)
-      .selectAll('pattern#wove')
+      .selectAll('pattern#offLaid')
       .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
       .enter()
       .append('pattern')
-      .attr('id', 'wove')
+      .attr('id', 'offLaid')
       .attr('width',1)
       .attr('height',1)
       .attr('x','0')
@@ -79,61 +103,172 @@ class Montage extends Component {
       .attr('patternUnits','objectBoundingBox')
 
     select(svgNode)
-      .select('pattern#wove')
+      .select('pattern#offLaid')
       .selectAll('rect')
       .data([0])
       .enter()
       .append('rect')
       .attr('width',rectSideMinus)
       .attr('height',rectSide*2)
-      .attr('fill','#9f9a86');
+      .attr('fill',colorTable['off']);
 
     select(svgNode)
-      .select('pattern#wove')
-      .selectAll('path')
-      .data([0])
-      .enter()
-      .append('path')
-      .attr('d',sineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:1; fill:none')
-      .attr('shape-rendering','crispEdges');
-
-    select(svgNode)
-      .selectAll('pattern#laid')
-      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
-      .enter()
-      .append('pattern')
-      .attr('id', 'laid')
-      .attr('width',1)
-      .attr('height',1)
-      .attr('x','0')
-      .attr('y','0')
-      .attr('patternContentUnits','userSpaceOnUse')
-      .attr('patternUnits','objectBoundingBox')
-
-    select(svgNode)
-      .select('pattern#laid')
-      .selectAll('rect')
-      .data([0])
-      .enter()
-      .append('rect')
-      .attr('width',rectSideMinus)
-      .attr('height',rectSide*2)
-      .attr('fill','#9f9a86');
-
-    select(svgNode)
-      .select('pattern#laid')
+      .select('pattern#offLaid')
       .selectAll('path')
       .data([0])
       .enter()
       .append('path')
       .attr('d',lineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:1')
+      .attr('style','stroke:black; stroke-width:0.5')
       .attr('shape-rendering','crispEdges');
+
+    //** offWove **//
+
+    select(svgNode)
+      .selectAll('pattern#offWove')
+      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
+      .enter()
+      .append('pattern')
+      .attr('id', 'offWove')
+      .attr('width',1)
+      .attr('height',1)
+      .attr('x','0')
+      .attr('y','0')
+      .attr('patternContentUnits','userSpaceOnUse')
+      .attr('patternUnits','objectBoundingBox')
+
+    select(svgNode)
+      .select('pattern#offWove')
+      .selectAll('rect')
+      .data([0])
+      .enter()
+      .append('rect')
+      .attr('width',rectSideMinus)
+      .attr('height',rectSide*2)
+      .attr('fill',colorTable['off']);
+
+    select(svgNode)
+      .select('pattern#offWove')
+      .selectAll('path')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d',sineGen(rectSideMinus))
+      .attr('style','stroke:black; stroke-width:0.5; fill:none')
+      .attr('shape-rendering','crispEdges');
+
+    //** westernLaid **//
+
+    select(svgNode)
+      .selectAll('pattern#westernLaid')
+      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
+      .enter()
+      .append('pattern')
+      .attr('id', 'westernLaid')
+      .attr('width',1)
+      .attr('height',1)
+      .attr('x','0')
+      .attr('y','0')
+      .attr('patternContentUnits','userSpaceOnUse')
+      .attr('patternUnits','objectBoundingBox')
+
+    select(svgNode)
+      .select('pattern#westernLaid')
+      .selectAll('rect')
+      .data([0])
+      .enter()
+      .append('rect')
+      .attr('width',rectSideMinus)
+      .attr('height',rectSide*2)
+      .attr('fill',colorTable['Western']);
+
+    select(svgNode)
+      .select('pattern#westernLaid')
+      .selectAll('path')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d',lineGen(rectSideMinus))
+      .attr('style','stroke:black; stroke-width:0.5')
+      .attr('shape-rendering','crispEdges');
+
+    //** westernWove **//
+    select(svgNode)
+      .selectAll('pattern#westernWove')
+      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
+      .enter()
+      .append('pattern')
+      .attr('id', 'westernWove')
+      .attr('width',1)
+      .attr('height',1)
+      .attr('x','0')
+      .attr('y','0')
+      .attr('patternContentUnits','userSpaceOnUse')
+      .attr('patternUnits','objectBoundingBox')
+
+    select(svgNode)
+      .select('pattern#westernWove')
+      .selectAll('rect')
+      .data([0])
+      .enter()
+      .append('rect')
+      .attr('width',rectSideMinus)
+      .attr('height',rectSide*2)
+      .attr('fill',colorTable['Western']);
+
+    select(svgNode)
+      .select('pattern#westernWove')
+      .selectAll('path')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d',sineGen(rectSideMinus))
+      .attr('style','stroke:black; stroke-width:0.5; fill:none')
+      .attr('shape-rendering','crispEdges');
+
+    //** asianLaid **//
+    select(svgNode)
+      .selectAll('pattern#asianLaid')
+      .data([0]) // bc enter selection, prevents appending new 'pattern' on re-render
+      .enter()
+      .append('pattern')
+      .attr('id', 'asianLaid')
+      .attr('width',1)
+      .attr('height',1)
+      .attr('x','0')
+      .attr('y','0')
+      .attr('patternContentUnits','userSpaceOnUse')
+      .attr('patternUnits','objectBoundingBox')
+
+    select(svgNode)
+      .select('pattern#asianLaid')
+      .selectAll('rect')
+      .data([0])
+      .enter()
+      .append('rect')
+      .attr('width',rectSideMinus)
+      .attr('height',rectSide*2)
+      .attr('fill',colorTable['Asian']);
+
+    select(svgNode)
+      .select('pattern#asianLaid')
+      .selectAll('path')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('d',lineGen(rectSideMinus))
+      .attr('style','stroke:black; stroke-width:0.5')
+      .attr('shape-rendering','crispEdges');
+
   }
 
   drawMontage() {
     const svgNode = this.svgNode.current;
+
+    function togglesToFill (colorVal,textureVal) {
+      let s = colorVal + ' ' + textureVal;
+      return patternTable[s];
+    }
 
     select(svgNode)
       .selectAll('g.plotCanvas')
@@ -163,7 +298,8 @@ class Montage extends Component {
       .attr('y', d => d.y * (rectSide + rectPad))
       .attr('fill', d => (
         togglesToFill(
-          this.props.colorToggle ? d.tradition : null
+          this.props.colorToggle ? d.tradition : 'off',
+          this.props.textureToggle ? d.formation : 'off'
         )
       ))
       .attr('title', d => d.index_number);
