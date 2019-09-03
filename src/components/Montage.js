@@ -77,7 +77,7 @@ class Montage extends Component {
   injectPatterns() {
     const svgNode = this.svgNode.current;
     const rectSideMinus = rectSide - 1;
-    const strokeWidth = 1;
+    const strokeWidth = 1.5;
     const strokeColor = 'black';
 
     function lineGen (s) {
@@ -145,32 +145,40 @@ class Montage extends Component {
       .enter()
       .append('pattern')
       .attr('id', 'offWove')
-      .attr('width',1)
-      .attr('height',1)
+      .attr('width',rectSide/4)
+      .attr('height',rectSide/4)
       .attr('x','0')
       .attr('y','0')
       .attr('patternContentUnits','userSpaceOnUse')
-      .attr('patternUnits','objectBoundingBox')
+      .attr('patternUnits','userSpaceOnUse')
 
     select(svgNode)
       .select('pattern#offWove')
-      .selectAll('rect')
+      .selectAll('rect.bkgd')
       .data([0])
       .enter()
       .append('rect')
+      .attr('class','bkgd')
       .attr('width',rectSideMinus)
       .attr('height',rectSide*2)
       .attr('fill',colorTable['off']);
 
     select(svgNode)
       .select('pattern#offWove')
-      .selectAll('path')
+      .selectAll('rect.dots')
       .data([0])
       .enter()
-      .append('path')
-      .attr('d',sineGen(rectSideMinus))
-      .attr('style','stroke:'+strokeColor+';fill:none;stroke-width:'+strokeWidth)
-      .attr('shape-rendering','crispEdges');
+      .append('rect')
+      .attr('class','dots')
+      .attr('x','0')
+      .attr('y','0')
+      .attr('width',Math.ceil(rectSide/10))
+      .attr('height',Math.ceil(rectSide/10))
+      .attr('fill','#606060');
+
+      //.attr('shape-rendering','crispEdges')
+      //.attr('d',sineGen(rectSideMinus))
+      //.attr('style','stroke:'+strokeColor+';fill:none;stroke-width:'+strokeWidth)
 
     //** westernLaid **//
 
@@ -214,32 +222,40 @@ class Montage extends Component {
       .enter()
       .append('pattern')
       .attr('id', 'westernWove')
-      .attr('width',1)
-      .attr('height',1)
+      .attr('width',rectSide/4)
+      .attr('height',rectSide/4)
       .attr('x','0')
       .attr('y','0')
       .attr('patternContentUnits','userSpaceOnUse')
-      .attr('patternUnits','objectBoundingBox')
+      .attr('patternUnits','userSpaceOnUse')
 
     select(svgNode)
       .select('pattern#westernWove')
-      .selectAll('rect')
+      .selectAll('rect.bkgd')
       .data([0])
       .enter()
       .append('rect')
+      .attr('class','bkgd')
       .attr('width',rectSideMinus)
       .attr('height',rectSide*2)
       .attr('fill',colorTable['Western']);
 
     select(svgNode)
       .select('pattern#westernWove')
-      .selectAll('path')
+      .selectAll('rect.dots')
       .data([0])
       .enter()
-      .append('path')
-      .attr('d',sineGen(rectSideMinus))
-      .attr('style','stroke:'+strokeColor+';fill:none;stroke-width:'+strokeWidth)
-      .attr('shape-rendering','crispEdges');
+      .append('rect')
+      .attr('class','dots')
+      .attr('x','0')
+      .attr('y','0')
+      .attr('width',Math.ceil(rectSide/10))
+      .attr('height',Math.ceil(rectSide/10))
+      .attr('fill','#606060');
+
+      //.attr('d',sineGen(rectSideMinus))
+      //.attr('style','stroke:'+strokeColor+';fill:none;stroke-width:'+strokeWidth)
+      //.attr('shape-rendering','crispEdges');
 
     //** asianLaid **//
     select(svgNode)

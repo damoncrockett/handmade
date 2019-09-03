@@ -24,7 +24,7 @@ class App extends Component {
       printToggle: false,
       writeToggle: false,
       waterToggle: false,
-      sortToggle: false,
+      sortToggle: true,
       data: null
     };
 
@@ -82,7 +82,7 @@ class App extends Component {
   }
 
   assignCoords(data) {
-    let sortedData = (this.state.sortToggle ? orderBy(data,'tradition','desc') : orderBy(data,'id'));
+    let sortedData = (this.state.sortToggle ? orderBy(data,'id') : (Math.random() >= 0.5 ? orderBy(data,'tradition','desc') : (Math.random() >= 0.5 ? orderBy(data,'formation') : orderBy(data,'format'))));
     // basically implementing _gridcoords() here
     //let n = sortedData.length;
     //let ncols = Math.round( Math.sqrt(n) );
@@ -178,7 +178,7 @@ class App extends Component {
           <div className='buttonStrip'>
             <button onClick={this.handleTexture} style={textureStyle}>FORMATION</button>
             <button onClick={this.handleColor} style={colorStyle}>TRADITION</button>
-            <button onClick={this.handleSort} style={sortStyle}>^TRADITION</button>
+            <button onClick={this.handleSort} style={sortStyle}>INDEXSORT</button>
           </div>
         </div>
       </div>
