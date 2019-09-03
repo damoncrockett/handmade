@@ -8,7 +8,7 @@ import times from 'lodash/times';
 import constant from 'lodash/constant';
 import flatten from 'lodash/flatten';
 
-const gridPos = 46;
+const gridPos = 45;
 const lengthDict = {
   'Full':2,
   'Partial':1

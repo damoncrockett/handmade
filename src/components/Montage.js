@@ -4,7 +4,7 @@ import { min, max } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
 
 const margin = {top: 40, right: 40, bottom: 40, left: 40};
-const rectSide = 13;
+const rectSide = 25;
 const rectPad = 1;
 const widthDict = {'Full': rectSide - 1, 'Partial': rectSide - 1 };
 const heightDict = {'Full': rectSide * 2, 'Partial': rectSide - 1 };
@@ -333,7 +333,7 @@ class Montage extends Component {
           this.props.textureToggle ? d.formation : 'off'
         )
       ))
-      .attr('title', d => d.index_number);
+      .attr('title', d => d.id);
 
       //window.scrollTo( 0, this.state.svgH );
     }
