@@ -20,7 +20,7 @@ class App extends Component {
 
     this.state = { // global state
       textureToggle: false,
-      colorToggle: true,
+      colorToggle: false,
       printToggle: false,
       writeToggle: false,
       waterToggle: false,
@@ -178,7 +178,7 @@ class App extends Component {
           <div className='buttonStrip'>
             <button onClick={this.handleTexture} style={textureStyle}>FORMATION</button>
             <button onClick={this.handleColor} style={colorStyle}>TRADITION</button>
-            <button onClick={this.handleSort} style={sortStyle}>SORT</button>
+            <button onClick={this.handleSort} style={sortStyle}>^TRADITION</button>
           </div>
         </div>
       </div>

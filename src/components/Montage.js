@@ -10,8 +10,8 @@ const widthDict = {'Full': rectSide - 1, 'Partial': rectSide - 1 };
 const heightDict = {'Full': rectSide * 2, 'Partial': rectSide - 1 };
 
 const colorTable = {
-  'Asian':'rgb(72,149,15)',
-  'Western':'rgb(34,105,94)',
+  'Asian':'rgb(102,222,120)',
+  'Western':'rgb(39,191,179)',
   'off':'#9f9a86'
 };
 
@@ -77,14 +77,29 @@ class Montage extends Component {
   injectPatterns() {
     const svgNode = this.svgNode.current;
     const rectSideMinus = rectSide - 1;
+    const strokeWidth = 1;
+    const strokeColor = 'black';
 
     function lineGen (s) {
-      return 'M 0 ' + s/2 + ' H ' + s;
+      return 'M 0 ' + s/2 +
+             ' L ' + s + ' 0 ' +
+             'M 0 ' + s +
+             ' L ' + s + ' ' + s/2 +
+             ' M 0 ' + 3*s/2 +
+             ' L ' + s + ' ' + s +
+             ' M 0 ' + 2*s +
+             ' L ' + s + ' ' + 3*s/2
     };
 
     function sineGen (s) {
-      return 'M 0 ' + s/2 +
-             ' Q ' + s/2 + ' ' + '0' + ',' + ' ' + s + ' ' + s/2;
+      return 'M 0 ' + s/4 +
+             ' Q ' + s/2 + ' ' + '0' + ',' + s + ' ' + s/4 +
+             'M 0 ' + 3*s/4 +
+             ' Q ' + s/2 + ' ' + s/2 + ',' + s + ' ' + 3*s/4 +
+             'M 0 ' + 5*s/4 +
+             ' Q ' + s/2 + ' ' + s + ',' + s + ' ' + 5*s/4 +
+             'M 0 ' + 7*s/4 +
+             ' Q ' + s/2 + ' ' + 3*s/2 + ',' + s + ' ' + 7*s/4
     };
 
     //** offLaid **//
@@ -119,7 +134,7 @@ class Montage extends Component {
       .enter()
       .append('path')
       .attr('d',lineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:0.5')
+      .attr('style','stroke:'+strokeColor+';stroke-width:'+strokeWidth)
       .attr('shape-rendering','crispEdges');
 
     //** offWove **//
@@ -154,7 +169,7 @@ class Montage extends Component {
       .enter()
       .append('path')
       .attr('d',sineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:0.5; fill:none')
+      .attr('style','stroke:'+strokeColor+';fill:none;stroke-width:'+strokeWidth)
       .attr('shape-rendering','crispEdges');
 
     //** westernLaid **//
@@ -189,7 +204,7 @@ class Montage extends Component {
       .enter()
       .append('path')
       .attr('d',lineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:0.5')
+      .attr('style','stroke:'+strokeColor+';stroke-width:'+strokeWidth)
       .attr('shape-rendering','crispEdges');
 
     //** westernWove **//
@@ -223,7 +238,7 @@ class Montage extends Component {
       .enter()
       .append('path')
       .attr('d',sineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:0.5; fill:none')
+      .attr('style','stroke:'+strokeColor+';fill:none;stroke-width:'+strokeWidth)
       .attr('shape-rendering','crispEdges');
 
     //** asianLaid **//
@@ -257,7 +272,7 @@ class Montage extends Component {
       .enter()
       .append('path')
       .attr('d',lineGen(rectSideMinus))
-      .attr('style','stroke:black; stroke-width:0.5')
+      .attr('style','stroke:'+strokeColor+';stroke-width:'+strokeWidth)
       .attr('shape-rendering','crispEdges');
 
   }
