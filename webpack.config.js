@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: paths.dist, //yarn build will create this dir if it doesn't exist
     filename: 'bundle.js',
-    publicPath: '/' //where WDS serves bundle.js and index.html from
+    publicPath: '' //where WDS serves bundle.js and index.html from
   },
 
   devServer: {

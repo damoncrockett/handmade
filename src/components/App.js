@@ -74,7 +74,8 @@ class App extends Component {
   }
 
   getData() {
-    fetch('http://localhost:8888/papers.json')
+    //fetch('http://localhost:8888/papers.json')
+    fetch('papers.json')
       .then(response => response.json())
       .then(data => this.setState(state => ({
         data: this.assignCoords(data)
@@ -82,7 +83,8 @@ class App extends Component {
   }
 
   assignCoords(data) {
-    let sortedData = (this.state.sortToggle ? orderBy(data,'id') : (Math.random() >= 0.5 ? orderBy(data,'tradition','desc') : (Math.random() >= 0.5 ? orderBy(data,'formation') : orderBy(data,'format'))));
+    //let sortedData = (this.state.sortToggle ? orderBy(data,'id') : (Math.random() >= 0.5 ? orderBy(data,'tradition','desc') : (Math.random() >= 0.5 ? orderBy(data,'formation') : orderBy(data,'format'))));
+    let sortedData = (this.state.sortToggle ? orderBy(data,'id') : orderBy(data,['formation','tradition']));
     // basically implementing _gridcoords() here
     //let n = sortedData.length;
     //let ncols = Math.round( Math.sqrt(n) );
@@ -178,6 +180,9 @@ class App extends Component {
           <div className='buttonStrip'>
             <button onClick={this.handleTexture} style={textureStyle}>FORMATION</button>
             <button onClick={this.handleColor} style={colorStyle}>TRADITION</button>
+            <button onClick={this.handleWater} style={waterStyle}>WATERMARK</button>
+            <button onClick={this.handlePrint} style={printStyle}>PRINTING</button>
+            <button onClick={this.handleWrite} style={writeStyle}>WRITING</button>
             <button onClick={this.handleSort} style={sortStyle}>INDEXSORT</button>
           </div>
         </div>
